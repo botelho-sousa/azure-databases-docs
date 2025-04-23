@@ -28,7 +28,7 @@ To calculate the number, sign in to the source instance and run this command for
 
 `SELECT pg_size_pretty( pg_database_size('dbname') );`
 
-We recommend that you allocate sufficient storage on the flexible server, equivalent to 1.25 times or 25% more storage than what's being used per the output to the preceding command. You can also use [Storage Autogrow](../../flexible-server/how-to-auto-grow-storage-portal.md).
+We recommend that you allocate sufficient storage on the flexible server, equivalent to 1.25 times or 25% more storage than what's being used per the output to the preceding command. You can also use [Storage Autogrow](../../flexible-server/how-to-auto-grow-storage-portal.md) although sometimes the allocation might not be fast enough failing the migration due to running out of space.
 
 > [!IMPORTANT]  
 > Storage size can't be reduced in manual configuration or Storage Autogrow. Each step in the storage configuration spectrum doubles in size, so estimating the required storage beforehand is prudent.
