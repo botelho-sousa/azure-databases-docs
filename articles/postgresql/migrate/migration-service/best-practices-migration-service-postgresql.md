@@ -40,7 +40,7 @@ The quickstart to [Create an Azure Database for PostgreSQL flexible server](../.
 
 ## Migration timeline
 
-Each migration has a maximum lifetime of seven days (168 hours) after it starts, and it times out after seven days. You can complete your migration and application cutover after the data validation and all checks are complete to avoid the migration from timing out. In online migrations, after the initial base copy is complete, the cutover window lasts three days (72 hours) before timing out. In offline migrations, the applications should stop writing to the database to prevent data loss. Similarly, for online migration, keep traffic low throughout the migration.
+Each migration has a maximum lifetime of seven days (168 hours) after it starts, and it times out after seven days. You can complete your migration and application cutover after the data validation and all checks are complete to avoid the migration from timing out. In online migrations, after the initial base copy is complete, the cutover window lasts three days (72 hours) before timing out and being rolled back, delting the migrated data on the destination. In offline migrations, the applications should stop writing to the database to prevent data loss. Similarly, for online migration, keep traffic low throughout the migration.
 
 Most nonproduction servers (dev, UAT, test, and staging) are migrated by using offline migrations. Because these servers have less data than the production servers, the migration is fast. For production server migration, you need to know the time it would take to complete the migration to plan for it in advance.
 
@@ -50,7 +50,7 @@ The following phases are considered for calculating the total downtime to perfor
 
 - **Migration of PITR**: The best way to get a good estimate on the time taken to migrate your production database server is to take a point-in time restore (PITR) of your production server and run the offline migration on this newly restored server.
 - **Migration of buffer**: After you finish the preceding step, you can plan for actual production migration during a time period when application traffic is low. This migration can be planned on the same day or probably a week away. By this time, the size of the source server might have increased. Update your estimated migration time for your production server based on the amount of this increase. If the increase is significant, consider doing another test by using the PITR server. But for most servers, the size increase shouldn't be significant enough.
-- **Data validation**: After the migration is finished for the production server, you need to verify if the data in the flexible server is an exact copy of the source instance. You can use open-source or third-party tools or you can do the validation manually. Prepare the validation steps you want to do before the actual migration. Validation can include:
+- **Data validation**: After the migration is finished for the production server, you need to verify if the data in the flexible server is an exact copy of the source instance. You can use open-source or third-party tools or you can do the validation manually. Prepare the validation steps you want to do before the actual migration as they need to be finished in the mentioned 72 hours mentioned above. Validation can include:
 
    - Row count match for all the tables involved in the migration.
    - Matching counts for all the database objects (tables, sequences, extensions, procedures, and indexes).
